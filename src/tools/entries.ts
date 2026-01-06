@@ -89,6 +89,14 @@ export const listEntriesTool: McpToolConfig = {
         duration: entry.duration,
         start: entry.start,
         end: entry.end,
+        projectId: entry.projectId,
+        projectName: entry.project?.name,
+        taskId: entry.taskId,
+        taskName: entry.task?.name,
+        tags: entry.tags?.map((tag: any) => tag.name) || [],
+        tagIds: entry.tagIds || [],
+        timeInterval: entry.timeInterval,
+        billable: entry.billable,
       }));
 
       return {

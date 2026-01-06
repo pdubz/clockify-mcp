@@ -12,6 +12,7 @@ import {
 import { findProjectTool } from "./tools/projects";
 import { getCurrentUserTool } from "./tools/users";
 import { findWorkspacesTool } from "./tools/workspaces";
+import { getTagsTool } from "./tools/tags";
 import { z } from "zod";
 import { argv } from "process";
 
@@ -72,6 +73,13 @@ export default function createStatelessServer({
     editEntryTool.description,
     editEntryTool.parameters,
     editEntryTool.handler
+  );
+
+  server.tool(
+    getTagsTool.name,
+    getTagsTool.description,
+    getTagsTool.parameters,
+    getTagsTool.handler
   );
   return server.server;
 }
