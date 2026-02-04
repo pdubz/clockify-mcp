@@ -4,10 +4,6 @@
 
 This MCP Server integrates with AI Tools to manage your time entries in Clockify, so you can register your time entries just sending an prompt to LLM.
 
-## Next implementations
-
-- Implement tags for entries
-
 ## Using in Claude Desktop
 
 ### Installing via Smithery
