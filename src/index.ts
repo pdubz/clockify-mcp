@@ -3,18 +3,18 @@ import dotenv from "dotenv";
 dotenv.config();
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
-import { api, reportsApi, SERVER_CONFIG } from "./config/api";
+import { SERVER_CONFIG } from "./config/api.js";
 import {
   createEntryTool,
   deleteEntryTool,
   editEntryTool,
   listEntriesTool,
-} from "./tools/entries";
-import { findProjectTool } from "./tools/projects";
-import { getCurrentUserTool } from "./tools/users";
-import { findWorkspacesTool } from "./tools/workspaces";
-import { createTagTool, getTagsTool } from "./tools/tags";
-import { listTasksTool } from "./tools/tasks";
+} from "./tools/entries.js";
+import { findProjectTool } from "./tools/projects.js";
+import { getCurrentUserTool } from "./tools/users.js";
+import { findWorkspacesTool } from "./tools/workspaces.js";
+import { createTagTool, getTagsTool } from "./tools/tags.js";
+import { listTasksTool } from "./tools/tasks.js";
 import {
   getDetailedReportTool,
   getSummaryReportTool,
@@ -22,30 +22,17 @@ import {
   getAttendanceReportTool,
   getExpenseReportTool,
   getAuditLogReportTool,
-} from "./tools/reports";
+} from "./tools/reports.js";
 import {
   listSharedReportsTool,
   getSharedReportTool,
   createSharedReportTool,
   updateSharedReportTool,
   deleteSharedReportTool,
-} from "./tools/shared-reports";
-import { z } from "zod";
-import { argv } from "process";
-
-export const configSchema = z.object({
-  clockifyApiToken: z.string().describe("Clockify API Token"),
-});
-
+} from "./tools/shared-reports.js";
 const server = new McpServer(SERVER_CONFIG);
 
-export default function createStatelessServer({
-  config,
-}: {
-  config: z.infer<typeof configSchema>;
-}) {
-  api.defaults.headers.Authorization = `Bearer ${config.clockifyApiToken}`;
-  reportsApi.defaults.headers.Authorization = `Bearer ${config.clockifyApiToken}`;
+function registerTools() {
   server.tool(
     createEntryTool.name,
     createEntryTool.description,
@@ -191,17 +178,8 @@ export default function createStatelessServer({
     deleteSharedReportTool.handler
   );
 
-  return server.server;
 }
 
-(() => {
-  if (argv.find((flag) => flag === "--local")) {
-    createStatelessServer({
-      config: {
-        clockifyApiToken: process.env.CLOCKIFY_API_TOKEN as string,
-      },
-    });
-    const transport = new StdioServerTransport();
-    server.connect(transport);
-  }
-})();
+registerTools();
+const transport = new StdioServerTransport();
+server.connect(transport);

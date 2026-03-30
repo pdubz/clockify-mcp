@@ -1,10 +1,10 @@
 import { z } from "zod";
-import { TOOLS_CONFIG } from "../config/api";
-import { reportsService, buildReportRequestBody } from "../clockify-sdk/reports";
-import { McpResponse, McpToolConfig } from "../types";
-import { TDetailedReportSchema } from "../validation/reports/detailed-report-schema";
-import { TSummaryReportSchema } from "../validation/reports/summary-report-schema";
-import { TCommonReportFilters } from "../validation/reports/common-report-filters-schema";
+import { TOOLS_CONFIG } from "../config/api.js";
+import { reportsService, buildReportRequestBody } from "../clockify-sdk/reports.js";
+import { McpResponse, McpToolConfig } from "../types/index.js";
+import { TDetailedReportSchema } from "../validation/reports/detailed-report-schema.js";
+import { TSummaryReportSchema } from "../validation/reports/summary-report-schema.js";
+import { TCommonReportFilters } from "../validation/reports/common-report-filters-schema.js";
 
 const commonFilterParams = {
   workspaceId: z.string().describe("The ID of the workspace"),

@@ -1,5 +1,5 @@
 import { AxiosInstance } from "axios";
-import { reportsApi } from "../config/api";
+import { reportsApi } from "../config/api.js";
 
 function SharedReportsService(api: AxiosInstance) {
   async function list(workspaceId: string) {

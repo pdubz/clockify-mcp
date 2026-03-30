@@ -1,5 +1,5 @@
 import { AxiosInstance } from "axios";
-import { api } from "../config/api";
+import { api } from "../config/api.js";
 
 function WorkspacesService(api: AxiosInstance) {
   async function fetchAll() {

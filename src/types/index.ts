@@ -1,14 +1,14 @@
 import { z } from "zod";
-import { CreateEntrySchema } from "../validation/entries/create-entry-schema";
-import { FindEntrySchema } from "../validation/entries/find-entry-schema";
-import { DeleteEntrySchema } from "../validation/entries/delete-entry-schema";
-import { EditEntrySchema } from "../validation/entries/edit-entry-schema";
+import { CreateEntrySchema } from "../validation/entries/create-entry-schema.js";
+import { FindEntrySchema } from "../validation/entries/find-entry-schema.js";
+import { DeleteEntrySchema } from "../validation/entries/delete-entry-schema.js";
+import { EditEntrySchema } from "../validation/entries/edit-entry-schema.js";
 import {
   ReadResourceTemplateCallback,
   ResourceMetadata,
   ResourceTemplate,
-} from "@modelcontextprotocol/sdk/server/mcp";
-import { FindProjectSchema } from "../validation/projects/find-project-schema";
+} from "@modelcontextprotocol/sdk/server/mcp.js";
+import { FindProjectSchema } from "../validation/projects/find-project-schema.js";
 
 export type TCreateEntrySchema = z.infer<typeof CreateEntrySchema>;
 

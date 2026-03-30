@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { CommonReportFiltersSchema } from "./common-report-filters-schema";
+import { CommonReportFiltersSchema } from "./common-report-filters-schema.js";
 
 export const DetailedReportSchema = CommonReportFiltersSchema.extend({
   page: z

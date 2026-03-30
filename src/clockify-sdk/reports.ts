@@ -1,6 +1,6 @@
 import { AxiosInstance } from "axios";
-import { reportsApi } from "../config/api";
-import { TCommonReportFilters } from "../validation/reports/common-report-filters-schema";
+import { reportsApi } from "../config/api.js";
+import { TCommonReportFilters } from "../validation/reports/common-report-filters-schema.js";
 
 export function buildReportRequestBody(filters: TCommonReportFilters) {
   const { workspaceId, projectIds, clientIds, userIds, tagIds, rawFilters, ...rest } = filters;

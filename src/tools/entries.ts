@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { TOOLS_CONFIG } from "../config/api";
-import { entriesService } from "../clockify-sdk/entries";
+import { TOOLS_CONFIG } from "../config/api.js";
+import { entriesService } from "../clockify-sdk/entries.js";
 import {
   McpResponse,
   McpToolConfig,
@@ -8,7 +8,7 @@ import {
   TFindEntrySchema,
   TDeleteEntrySchema,
   TEditEntrySchema,
-} from "../types";
+} from "../types/index.js";
 
 export const createEntryTool: McpToolConfig = {
   name: TOOLS_CONFIG.entries.create.name,

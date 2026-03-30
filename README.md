@@ -22,16 +22,12 @@ Add to your MCP client config (Claude Desktop, Claude Code, Cursor, etc.):
 }
 ```
 
-### Installing via Smithery
+### From source
 
 ```bash
-npx -y @smithery/cli install @https-eduardo/clockify-mcp-server --client claude
-```
-
-### Manual Installation
-
-```bash
-npm i -g tsx
+git clone https://github.com/pdubz/clockify-mcp.git
+cd clockify-mcp
+npm install && npm run build
 ```
 
 Then add to your MCP client config:
@@ -40,10 +36,9 @@ Then add to your MCP client config:
 {
   "mcpServers": {
     "clockify": {
-      "command": "tsx",
-      "args": ["ABSOLUTE_PATH/src/index.ts", "--local"],
+      "command": "node",
+      "args": ["ABSOLUTE_PATH/dist/index.js"],
       "env": {
-        "CLOCKIFY_API_URL": "https://api.clockify.me/api/v1",
         "CLOCKIFY_API_TOKEN": "your-api-token"
       }
     }
@@ -107,7 +102,7 @@ All report tools accept common filter parameters:
 
 ```bash
 npm install
-npm run dev     # Start dev server via Smithery
+npm run dev     # Start dev server with tsx
 npm run build   # Build for production
 npx tsx --test test/reports.test.ts  # Run unit tests
 ```

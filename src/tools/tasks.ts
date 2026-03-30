@@ -1,6 +1,6 @@
-import { fetchAllPages } from "../config/pagination";
+import { fetchAllPages } from "../config/pagination.js";
 import { z } from "zod";
-import { McpResponse, McpToolConfig } from "../types";
+import { McpResponse, McpToolConfig } from "../types/index.js";
 
 export const listTasksTool: McpToolConfig = {
   name: "list-tasks",

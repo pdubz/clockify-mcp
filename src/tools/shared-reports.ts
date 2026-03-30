@@ -1,14 +1,14 @@
 import { z } from "zod";
-import { TOOLS_CONFIG } from "../config/api";
-import { sharedReportsService } from "../clockify-sdk/shared-reports";
-import { McpResponse, McpToolConfig } from "../types";
+import { TOOLS_CONFIG } from "../config/api.js";
+import { sharedReportsService } from "../clockify-sdk/shared-reports.js";
+import { McpResponse, McpToolConfig } from "../types/index.js";
 import {
   TListSharedReportsSchema,
   TGetSharedReportSchema,
   TCreateSharedReportSchema,
   TUpdateSharedReportSchema,
   TDeleteSharedReportSchema,
-} from "../validation/reports/shared-report-schema";
+} from "../validation/reports/shared-report-schema.js";
 
 export const listSharedReportsTool: McpToolConfig = {
   name: TOOLS_CONFIG.sharedReports.list.name,
