@@ -62,8 +62,9 @@ export const getDetailedReportTool: McpToolConfig = {
         const allEntries: any[] = [];
         let currentPage = params.page;
         let totals: any = null;
+        const MAX_PAGES = 100;
 
-        while (true) {
+        while (currentPage - params.page < MAX_PAGES) {
           body.detailedFilter.page = currentPage;
           const response = await reportsService.getDetailedReport(params.workspaceId, body);
           const data = response.data;

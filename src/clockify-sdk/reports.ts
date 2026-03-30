@@ -8,6 +8,7 @@ export function buildReportRequestBody(filters: TCommonReportFilters) {
   const body: Record<string, any> = {
     dateRangeStart: rest.dateRangeStart,
     dateRangeEnd: rest.dateRangeEnd,
+    sortOrder: "ASCENDING",
     exportType: "JSON",
   };
 
