@@ -1,7 +1,7 @@
-import { projectsService } from "../clockify-sdk/projects";
-import { TOOLS_CONFIG } from "../config/api";
+import { projectsService } from "../clockify-sdk/projects.js";
+import { TOOLS_CONFIG } from "../config/api.js";
 import { z } from "zod";
-import { McpResponse, McpToolConfig, TFindProjectSchema } from "../types";
+import { McpResponse, McpToolConfig, TFindProjectSchema } from "../types/index.js";
 
 export const findProjectTool: McpToolConfig = {
   name: TOOLS_CONFIG.projects.list.name,

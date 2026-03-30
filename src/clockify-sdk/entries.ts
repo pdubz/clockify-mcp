@@ -1,13 +1,13 @@
 import { AxiosInstance } from "axios";
-import { api } from "../config/api";
+import { api } from "../config/api.js";
 import {
   TCreateEntrySchema,
   TFindEntrySchema,
   TDeleteEntrySchema,
   TEditEntrySchema,
-} from "../types";
+} from "../types/index.js";
 import { URLSearchParams } from "node:url";
-import { fetchAllPages } from "../config/pagination";
+import { fetchAllPages } from "../config/pagination.js";
 
 function EntriesService(api: AxiosInstance) {
   async function create(entry: TCreateEntrySchema) {

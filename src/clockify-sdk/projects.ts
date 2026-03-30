@@ -1,6 +1,6 @@
 import { AxiosInstance } from "axios";
-import { api } from "../config/api";
-import { fetchAllPages } from "../config/pagination";
+import { api } from "../config/api.js";
+import { fetchAllPages } from "../config/pagination.js";
 
 function ProjectsService(api: AxiosInstance) {
   async function fetchAll(workspaceId: string) {

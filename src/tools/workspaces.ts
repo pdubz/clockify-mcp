@@ -1,10 +1,10 @@
-import { TOOLS_CONFIG } from "../config/api";
-import { workspacesService } from "../clockify-sdk/workspaces";
+import { TOOLS_CONFIG } from "../config/api.js";
+import { workspacesService } from "../clockify-sdk/workspaces.js";
 import {
   ClockifyWorkspace,
   McpResponse,
   McpToolConfigWithoutParameters,
-} from "../types";
+} from "../types/index.js";
 
 export const findWorkspacesTool: McpToolConfigWithoutParameters = {
   name: TOOLS_CONFIG.workspaces.list.name,

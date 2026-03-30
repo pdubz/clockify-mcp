@@ -1,7 +1,7 @@
-import { api } from "../config/api";
-import { fetchAllPages } from "../config/pagination";
+import { api } from "../config/api.js";
+import { fetchAllPages } from "../config/pagination.js";
 import { z } from "zod";
-import { McpResponse, McpToolConfig } from "../types";
+import { McpResponse, McpToolConfig } from "../types/index.js";
 
 export const createTagTool: McpToolConfig = {
   name: "create-tag",

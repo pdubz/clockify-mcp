@@ -1,10 +1,10 @@
-import { TOOLS_CONFIG } from "../config/api";
-import { usersService } from "../clockify-sdk/users";
+import { TOOLS_CONFIG } from "../config/api.js";
+import { usersService } from "../clockify-sdk/users.js";
 import {
   ClockifyUser,
   McpResponse,
   McpToolConfigWithoutParameters,
-} from "../types";
+} from "../types/index.js";
 
 export const getCurrentUserTool: McpToolConfigWithoutParameters = {
   name: TOOLS_CONFIG.users.current.name,

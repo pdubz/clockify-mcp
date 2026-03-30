@@ -1,38 +1,112 @@
-# Clockify MCP Server
+# @pdubz/clockify-mcp
 
-[![smithery badge](https://smithery.ai/badge/@https-eduardo/clockify-mcp-server)](https://smithery.ai/server/@https-eduardo/clockify-mcp-server)
+A Model Context Protocol (MCP) server for Clockify — manage time entries, projects, tags, and generate reports through any MCP-compatible AI client.
 
-This MCP Server integrates with AI Tools to manage your time entries in Clockify, so you can register your time entries just sending an prompt to LLM.
+## Installation
 
-## Using in Claude Desktop
+### npx (recommended)
 
-### Installing via Smithery
-
-To install clockify-mcp-server for Claude Desktop automatically via [Smithery](https://smithery.ai/server/@https-eduardo/clockify-mcp-server):
-
-```bash
-npx -y @smithery/cli install @https-eduardo/clockify-mcp-server --client claude
-```
-
-### Installing Manually
-
-First, install tsx globally
-
-`npm i -g tsx`
-
-Then insert the MCP server in `claude_desktop_config`
+Add to your MCP client config (Claude Desktop, Claude Code, Cursor, etc.):
 
 ```json
 {
   "mcpServers": {
-    "clockify-time-entries": {
-      "command": "tsx",
-      "args": ["ABSOLUTE_PATH/src/index.ts", "--local"],
+    "clockify": {
+      "command": "npx",
+      "args": ["@pdubz/clockify-mcp", "--local"],
       "env": {
-        "CLOCKIFY_API_URL": "https://api.clockify.me/api/v1",
-        "CLOCKIFY_API_TOKEN": "YOUR_CLOCKIFY_API_TOKEN_HERE"
+        "CLOCKIFY_API_TOKEN": "your-api-token"
       }
     }
   }
 }
 ```
+
+### From source
+
+```bash
+git clone https://github.com/pdubz/clockify-mcp.git
+cd clockify-mcp
+npm install && npm run build
+```
+
+Then add to your MCP client config:
+
+```json
+{
+  "mcpServers": {
+    "clockify": {
+      "command": "node",
+      "args": ["ABSOLUTE_PATH/dist/index.js"],
+      "env": {
+        "CLOCKIFY_API_TOKEN": "your-api-token"
+      }
+    }
+  }
+}
+```
+
+## Available Tools
+
+### Time Management
+
+| Tool | Description |
+|------|-------------|
+| `get-workspaces` | List available workspaces |
+| `get-current-user` | Get the authenticated user |
+| `get-projects` | List projects in a workspace |
+| `get-tags` | List tags in a workspace |
+| `create-tag` | Create a new tag |
+| `list-tasks` | List tasks within a project |
+| `create-time-entry` | Create a new time entry |
+| `list-time-entries` | List time entries for a user |
+| `edit-time-entry` | Update an existing time entry |
+| `delete-time-entry` | Delete a time entry |
+
+### Reports
+
+| Tool | Description |
+|------|-------------|
+| `get-detailed-report` | Individual time entries with full detail. Supports pagination and auto-pagination. |
+| `get-summary-report` | Aggregated data grouped by project, user, client, tag, date, or month (1-3 grouping levels). |
+| `get-weekly-report` | Time data organized by day of the week. |
+| `get-attendance-report` | Work hours and break time tracking. |
+| `get-expense-report` | Expense data for a workspace. |
+| `get-audit-log-report` | Workspace activity history. |
+
+All report tools accept common filter parameters:
+- `workspaceId` (required) — workspace ID
+- `dateRangeStart` / `dateRangeEnd` (required) — ISO 8601 date strings
+- `projectIds`, `clientIds`, `userIds`, `tagIds` (optional) — filter by IDs
+- `rawFilters` (optional) — advanced filters merged into the request body for custom filtering
+
+### Shared Reports
+
+| Tool | Description |
+|------|-------------|
+| `list-shared-reports` | List saved reports in a workspace |
+| `get-shared-report` | Get a specific saved report |
+| `create-shared-report` | Save a new report configuration |
+| `update-shared-report` | Update a saved report |
+| `delete-shared-report` | Delete a saved report |
+
+## Environment Variables
+
+| Variable | Required | Description |
+|----------|----------|-------------|
+| `CLOCKIFY_API_TOKEN` | Yes | Your Clockify API token |
+| `CLOCKIFY_API_URL` | No | Override core API URL (default: `https://api.clockify.me/api/v1`) |
+| `CLOCKIFY_REPORTS_API_URL` | No | Override reports API URL (default: `https://reports.api.clockify.me/v1`) |
+
+## Development
+
+```bash
+npm install
+npm run dev     # Start dev server with tsx
+npm run build   # Build for production
+npx tsx --test test/reports.test.ts  # Run unit tests
+```
+
+## License
+
+MIT

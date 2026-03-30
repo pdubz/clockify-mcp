@@ -1,34 +1,38 @@
+#!/usr/bin/env node
 import dotenv from "dotenv";
 dotenv.config();
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
-import { api, SERVER_CONFIG } from "./config/api";
+import { SERVER_CONFIG } from "./config/api.js";
 import {
   createEntryTool,
   deleteEntryTool,
   editEntryTool,
   listEntriesTool,
-} from "./tools/entries";
-import { findProjectTool } from "./tools/projects";
-import { getCurrentUserTool } from "./tools/users";
-import { findWorkspacesTool } from "./tools/workspaces";
-import { createTagTool, getTagsTool } from "./tools/tags";
-import { listTasksTool } from "./tools/tasks";
-import { z } from "zod";
-import { argv } from "process";
-
-export const configSchema = z.object({
-  clockifyApiToken: z.string().describe("Clockify API Token"),
-});
-
+} from "./tools/entries.js";
+import { findProjectTool } from "./tools/projects.js";
+import { getCurrentUserTool } from "./tools/users.js";
+import { findWorkspacesTool } from "./tools/workspaces.js";
+import { createTagTool, getTagsTool } from "./tools/tags.js";
+import { listTasksTool } from "./tools/tasks.js";
+import {
+  getDetailedReportTool,
+  getSummaryReportTool,
+  getWeeklyReportTool,
+  getAttendanceReportTool,
+  getExpenseReportTool,
+  getAuditLogReportTool,
+} from "./tools/reports.js";
+import {
+  listSharedReportsTool,
+  getSharedReportTool,
+  createSharedReportTool,
+  updateSharedReportTool,
+  deleteSharedReportTool,
+} from "./tools/shared-reports.js";
 const server = new McpServer(SERVER_CONFIG);
 
-export default function createStatelessServer({
-  config,
-}: {
-  config: z.infer<typeof configSchema>;
-}) {
-  api.defaults.headers.Authorization = `Bearer ${config.clockifyApiToken}`;
+function registerTools() {
   server.tool(
     createEntryTool.name,
     createEntryTool.description,
@@ -96,17 +100,86 @@ export default function createStatelessServer({
     listTasksTool.parameters,
     listTasksTool.handler
   );
-  return server.server;
+
+  server.tool(
+    getDetailedReportTool.name,
+    getDetailedReportTool.description,
+    getDetailedReportTool.parameters,
+    getDetailedReportTool.handler
+  );
+
+  server.tool(
+    getSummaryReportTool.name,
+    getSummaryReportTool.description,
+    getSummaryReportTool.parameters,
+    getSummaryReportTool.handler
+  );
+
+  server.tool(
+    getWeeklyReportTool.name,
+    getWeeklyReportTool.description,
+    getWeeklyReportTool.parameters,
+    getWeeklyReportTool.handler
+  );
+
+  server.tool(
+    getAttendanceReportTool.name,
+    getAttendanceReportTool.description,
+    getAttendanceReportTool.parameters,
+    getAttendanceReportTool.handler
+  );
+
+  server.tool(
+    getExpenseReportTool.name,
+    getExpenseReportTool.description,
+    getExpenseReportTool.parameters,
+    getExpenseReportTool.handler
+  );
+
+  server.tool(
+    getAuditLogReportTool.name,
+    getAuditLogReportTool.description,
+    getAuditLogReportTool.parameters,
+    getAuditLogReportTool.handler
+  );
+
+  server.tool(
+    listSharedReportsTool.name,
+    listSharedReportsTool.description,
+    listSharedReportsTool.parameters,
+    listSharedReportsTool.handler
+  );
+
+  server.tool(
+    getSharedReportTool.name,
+    getSharedReportTool.description,
+    getSharedReportTool.parameters,
+    getSharedReportTool.handler
+  );
+
+  server.tool(
+    createSharedReportTool.name,
+    createSharedReportTool.description,
+    createSharedReportTool.parameters,
+    createSharedReportTool.handler
+  );
+
+  server.tool(
+    updateSharedReportTool.name,
+    updateSharedReportTool.description,
+    updateSharedReportTool.parameters,
+    updateSharedReportTool.handler
+  );
+
+  server.tool(
+    deleteSharedReportTool.name,
+    deleteSharedReportTool.description,
+    deleteSharedReportTool.parameters,
+    deleteSharedReportTool.handler
+  );
+
 }
 
-(() => {
-  if (argv.find((flag) => flag === "--local")) {
-    createStatelessServer({
-      config: {
-        clockifyApiToken: process.env.CLOCKIFY_API_TOKEN as string,
-      },
-    });
-    const transport = new StdioServerTransport();
-    server.connect(transport);
-  }
-})();
+registerTools();
+const transport = new StdioServerTransport();
+server.connect(transport);

@@ -7,6 +7,13 @@ export const api = axios.create({
   },
 });
 
+export const reportsApi = axios.create({
+  baseURL: process.env.CLOCKIFY_REPORTS_API_URL || 'https://reports.api.clockify.me/v1',
+  headers: {
+    "X-Api-Key": `${process.env.CLOCKIFY_API_TOKEN}`,
+  },
+});
+
 export const SERVER_CONFIG = {
   name: "Clockify MCP Server",
   version: "1.0.0",
@@ -53,6 +60,54 @@ export const TOOLS_CONFIG = {
     edit: {
       name: "edit-time-entry",
       description: "Edit an existing time entry in a workspace",
+    },
+  },
+  reports: {
+    detailed: {
+      name: "get-detailed-report",
+      description: "Get a detailed time entry report with individual entries, filterable by date range, projects, clients, users, and tags",
+    },
+    summary: {
+      name: "get-summary-report",
+      description: "Get a summary report with aggregated time data, grouped by project, user, client, tag, date, or month",
+    },
+    weekly: {
+      name: "get-weekly-report",
+      description: "Get a weekly time report showing hours per day of the week",
+    },
+    attendance: {
+      name: "get-attendance-report",
+      description: "Get an attendance report showing work hours and break times",
+    },
+    expense: {
+      name: "get-expense-report",
+      description: "Get an expense report for the workspace",
+    },
+    auditLog: {
+      name: "get-audit-log-report",
+      description: "Get an audit log report showing workspace activity history",
+    },
+  },
+  sharedReports: {
+    list: {
+      name: "list-shared-reports",
+      description: "List all shared reports in a workspace",
+    },
+    get: {
+      name: "get-shared-report",
+      description: "Get a specific shared report by ID",
+    },
+    create: {
+      name: "create-shared-report",
+      description: "Create a new shared report in a workspace",
+    },
+    update: {
+      name: "update-shared-report",
+      description: "Update an existing shared report",
+    },
+    delete: {
+      name: "delete-shared-report",
+      description: "Delete a shared report from a workspace",
     },
   },
 };

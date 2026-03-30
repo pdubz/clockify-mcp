@@ -1,5 +1,5 @@
 import { AxiosInstance } from "axios";
-import { api } from "./api";
+import { api } from "./api.js";
 
 const PAGE_SIZE = 200;
 
