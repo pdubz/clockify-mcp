@@ -2,7 +2,7 @@ import dotenv from "dotenv";
 dotenv.config();
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
-import { api, SERVER_CONFIG } from "./config/api";
+import { api, reportsApi, SERVER_CONFIG } from "./config/api";
 import {
   createEntryTool,
   deleteEntryTool,
@@ -14,7 +14,6 @@ import { getCurrentUserTool } from "./tools/users";
 import { findWorkspacesTool } from "./tools/workspaces";
 import { createTagTool, getTagsTool } from "./tools/tags";
 import { listTasksTool } from "./tools/tasks";
-import { reportsApi } from "./config/api";
 import {
   getDetailedReportTool,
   getSummaryReportTool,
